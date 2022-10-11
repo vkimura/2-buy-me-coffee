@@ -3,7 +3,7 @@ const hre = require("hardhat");
 //returns Ether balance of given address
 async function getBalance(address) {
   const balanceBigInt = await hre.ethers.provider.getBalance(address);
-  return hre.ethers.utils.formatEther(balance);
+  return hre.ethers.utils.formatEther(balanceBigInt);
 }
 
 //Logs Ether balances of list of addresses
@@ -16,7 +16,7 @@ async function printBalances(addresses) {
 }
 
 //Logs memos stored on-chain from coffee purchases
-async function printMemos(coffeeContract) {
+async function printMemos(memos) {
   for (const memo of memos) {
     const timestamp = memo.timestamp;
     const tipper = memo.name;
@@ -46,7 +46,7 @@ async function main() {
   console.log("BuyMeACoffee deployed to:", buyMeACoffee.address);
 
   //Check balances before the coffee purchase
-  const addresses = [owner.address, tipper.address.buyMeACoffee.address];
+  const addresses = [owner.address, tipper.address, buyMeACoffee.address];
   console.log("== start == ");
   await printBalances(addresses);
 
