@@ -79,7 +79,7 @@ contract BuyMeACoffee {
         //Add the memo to the list of memos
         // memos.push(Memo(_name, _message, block.timestamp));
         //Send the ETH tip to the owner
-        // owner.transfer(msg.value);
+        //owner.transfer(msg.value);
     }
 
     /**
