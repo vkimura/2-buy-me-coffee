@@ -8,7 +8,9 @@ async function getBalance(provider, address) {
 
 async function main() {
   //Get the contract that we deployed to Goerli
-  const contractAddress = "0x182D7324b0d94788658C0a778E63F9cC432513F0";
+  //   const contractAddress = "0x182D7324b0d94788658C0a778E63F9cC432513F0";
+  const contractAddress = "0x6f4066Fd194B2f404Da2859dBDbeEb70d671De17";
+  let newWithdrawalAddress = "0x2555B60408f333E945D1E03b8b3C5d39a9FE5bBb";
   const contractABI = abi.abi;
   // const contract = new hre.ethers.Contract(contractAddress, abi.abi, hre.ethers.provider);
 
@@ -46,7 +48,9 @@ async function main() {
   //Withdraw the balance of the contract if there are any funds
   if (contractBalance !== "0.0") {
     console.log("Withdrawing funds from contract...");
-    const withdrawTxn = await buyMeACoffee.withdrawTips();
+    const withdrawTxn = await buyMeACoffee.withdrawToAnotherAddress(
+      newWithdrawalAddress
+    );
     await withdrawTxn.wait();
   } else {
     console.log("No funds to withdraw");
@@ -56,6 +60,12 @@ async function main() {
   console.log(
     "Current balance of owner after withdraw: ",
     await getBalance(provider, signer.address),
+    "ETH"
+  );
+
+  console.log(
+    "Current balance of contract after withdraw: ",
+    await getBalance(provider, buyMeACoffee.address),
     "ETH"
   );
 }

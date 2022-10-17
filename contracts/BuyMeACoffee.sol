@@ -83,6 +83,16 @@ contract BuyMeACoffee {
     }
 
     /**
+     * @dev withdraws all ETH to different address set only by owner
+     */
+    function withdrawToAnotherAddress(address payable _to) public {
+        //Only the owner can withdraw funds
+        require(msg.sender == owner, "Only the owner can withdraw funds");
+        //Send all ETH to the owner
+        _to.transfer(address(this).balance);
+    }
+
+    /**
      * @dev send entire balance stored in this contract to owner
      */
     function withdrawTips() public {
